@@ -1,0 +1,96 @@
+\documentclass{resume}
+
+\name{$placeholder{basics.name}}
+\subtitle{$placeholder{basics.jobTitle}}
+\setemail{$placeholder{basics.email}}
+\setlinkedin{$placeholder{basics.linkedin}}
+\setgithub{$placeholder{basics.github}}
+\setphone{$placeholder{basics.phone}}
+
+
+
+\begin{document}
+
+
+%%%------------------------------------------------------------------------
+%%% Address and contact block
+%%%------------------------------------------------------------------------
+
+\headertype{\phone}{\email}{\linkedin}{\github}
+
+
+% Start section
+\section{\faTasks}{\textsc{Skills}}
+\vspace{-8pt}
+
+\begin{cvblock}
+{% for skill in skills -%}
+    \skillsentry{$placeholder{skill.name}:} { $placeholder{', '.join(skill.keywords)} }
+{% endfor %}
+\end{cvblock}
+
+%-------------------------------------------------- EXPERIENCE --------------------------------------------------
+\section{\faBriefcase}{Experience}
+
+{% for exp in work -%}
+  \begin{cvblock}
+    \entryhead{$placeholder{exp.position}}{$placeholder{exp.startDate} --- $placeholder{exp.endDate}}{$placeholder{exp.name}}
+    \begin{cventrylist}
+    {% for item in exp.description %}
+      \entryitem{$placeholder{item}}
+    {% endfor %}
+    \end{cventrylist}
+    \tagline{$placeholder{', '.join(exp.keywords)}}
+  \end{cvblock}
+{% endfor %}
+
+
+\vspace{-10pt}
+%-------------------------------------------------- EDUCATION --------------------------------------------------
+\section{\faGraduationCap}{\textsc{Education}}
+{% for ed in education%}
+  \begin{cvblock}
+      \entryhead{$placeholder{ed.studyType} in $placeholder{ed.courseOfStudy}}{$placeholder{ed.startDate} --- $placeholder{ed.endDate}}{$placeholder{ed.institution}, $placeholder{ed.country}}
+  \end{cvblock}
+{% endfor %}
+
+
+%-------------------------------------------------- TRAINING --------------------------------------------------
+\section{\faCertificate}{\textsc{Training \& Certification}}
+
+\begin{cvblock}
+{% for item in certificates %}
+    \entryhead{$placeholder{item.issuer}}{$placeholder{item.date}}{\bulletstyle\ $placeholder{item.name}}
+{% endfor %}
+\end{cvblock}
+
+
+%-------------------------------------------------- PROJECTS --------------------------------------------------
+\section{\faCode}{\textsc{Open Source Projects}}
+
+
+{% for proj in projects %}
+  \begin{cvblock}
+    \entrysimple{\href{$placeholder{proj.url}}{$placeholder{proj.name}}}
+    \begin{cventrylist}
+      \entryitem{$placeholder{proj.description}}
+    \end{cventrylist}
+    \tagline{ $placeholder{', '.join(proj.keywords)} }
+  \end{cvblock}
+
+  \vspace{-5pt}
+{% endfor %}
+
+
+
+%-------------------------------------------------- AWARDS --------------------------------------------------
+\section{\faAward}{\textsc{Awards \& Representative Experience}}
+
+\vspace{5pt}
+{% for award in awards %}
+  \begin{cvblock}
+    \itemdetailed{$placeholder{award.awarder} - $placeholder{award.title}}{$placeholder{award.date}}
+  \end{cvblock}
+{% endfor %}
+
+\end{document}

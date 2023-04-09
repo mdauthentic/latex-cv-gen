@@ -1,0 +1,358 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Resume",
+    "definitions": {
+        "Resume": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "basics": {
+                    "$ref": "#/definitions/Basics"
+                },
+                "work": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Work"
+                    }
+                },
+                "education": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Education"
+                    }
+                },
+                "awards": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Award"
+                    }
+                },
+                "certificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Certificate"
+                    }
+                },
+                "publications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Publication"
+                    }
+                },
+                "skills": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Interest"
+                    }
+                },
+                "languages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Language"
+                    }
+                },
+                "interests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Interest"
+                    }
+                },
+                "projects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Project"
+                    }
+                }
+            },
+            "required": [
+                "awards",
+                "basics",
+                "certificates",
+                "education",
+                "interests",
+                "languages",
+                "projects",
+                "publications",
+                "skills",
+                "work"
+            ],
+            "title": "Resume"
+        },
+        "Award": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "awarder": {
+                    "type": "string"
+                },
+                "summary": {
+                    "type": "string"
+                }
+            },
+            "required": ["awarder", "date", "summary", "title"],
+            "title": "Award"
+        },
+        "Basics": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "jobTitle": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": ["https"]
+                },
+                "linkedin": {
+                    "type": "string"
+                },
+                "github": {
+                    "type": "string"
+                },
+                "summary": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email",
+                "github",
+                "image",
+                "jobTitle",
+                "linkedin",
+                "name",
+                "phone",
+                "summary",
+                "url"
+            ],
+            "title": "Basics"
+        },
+        "Certificate": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "issuer": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": ["https"]
+                }
+            },
+            "required": ["date", "issuer", "name", "url"],
+            "title": "Certificate"
+        },
+        "Education": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "institution": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "courseOfStudy": {
+                    "type": "string"
+                },
+                "studyType": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "endDate": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "required": [
+                "country",
+                "courseOfStudy",
+                "endDate",
+                "institution",
+                "startDate",
+                "studyType"
+            ],
+            "title": "Education"
+        },
+        "Interest": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "keywords": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "keywords",
+                "name"
+            ],
+            "title": "Interest"
+        },
+        "Language": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "language": {
+                    "type": "string"
+                },
+                "fluency": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fluency",
+                "language"
+            ],
+            "title": "Language"
+        },
+        "Project": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "keywords": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": ["https"]
+                }
+            },
+            "required": [
+                "description",
+                "keywords",
+                "name",
+                "url"
+            ],
+            "title": "Project"
+        },
+        "Publication": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "releaseDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "summary": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "publisher",
+                "releaseDate",
+                "summary",
+                "url"
+            ],
+            "title": "Publication"
+        },
+        "Work": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "startDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "endDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "description": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "keywords": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "description",
+                "endDate",
+                "keywords",
+                "name",
+                "position",
+                "startDate",
+                "url"
+            ],
+            "title": "Work"
+        }
+    }
+}
