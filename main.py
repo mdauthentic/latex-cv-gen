@@ -71,7 +71,6 @@ class LatexGen:
         # check that file excist and the file is a supported type
         self.validate_file()
         context = self.read_file(self.resume_body)
-        print(context)
         content = self.build_template().render(context)
         with open(self.output, "w") as f:
             f.write(content)
