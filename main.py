@@ -7,17 +7,28 @@ import yaml
 from jsonschema import validate
 
 
-VAR_START_STR = "$placeholder{"
-VAR_END_STR = "}"
 TEMPLATE = "template.jinja"
 TEMPLATE_BASE_DIR = "templates"
 RESUME_BODY = "resources/resume.json"
 JSON_SCHEMA = "resources/schema.json"
 OUTPUT_PATH = "output/main.tex"
 
+TEMPLATE_OPT = {
+    "variable_start_string": "$placeholder{",
+    "variable_end_string": "}",
+    "trim_blocks": True,
+    "lstrip_blocks": True,
+}
 
-class Json2Tex:
-    def __init__(self, resume: str = None, template_dir: str = None, template_path: str = None, out: str = None) -> None:
+
+class LatexGen:
+    def __init__(
+        self,
+        resume: str = None,
+        template_dir: str = None,
+        template_path: str = None,
+        out: str = None,
+    ) -> None:
         self.resume_body = resume or RESUME_BODY
         self.template = template_path or TEMPLATE
         self.template_dir = template_dir or TEMPLATE_BASE_DIR
@@ -26,14 +37,14 @@ class Json2Tex:
     # def template_type(self):
     #     pass
 
-    def validate_json(self):
+    def validate_json(self) -> None:
         read_schema = self.read_file(JSON_SCHEMA)
         resume_instance = self.read_file(self.resume_body)
         validate(instance=resume_instance, schema=read_schema)
 
     def validate_file(self) -> Any:
         if not Path(self.resume_body).exists():
-            raise FileNotFoundError(f'File {self.resume_body} does not exist.')
+            raise FileNotFoundError(f"File {self.resume_body} does not exist.")
         file_ext = Path(self.resume_body).suffix
         if file_ext not in (".json", ".yaml", ".yml"):
             raise TypeError(f"File type '{file_ext}' is not currently supported.")
@@ -42,17 +53,17 @@ class Json2Tex:
     def read_file(file_path) -> Any:
         try:
             with open(file_path, encoding="utf-8") as f:
-                return json.load(f) if Path(file_path).suffix == ".json" else yaml.safe_load(f)
+                return (
+                    json.load(f)
+                    if Path(file_path).suffix == ".json"
+                    else yaml.safe_load(f)
+                )
         except ValueError:
             sys.exit("Input file is not a valid JSON/YAML.")
 
     def build_template(self) -> Template:
         env = Environment(
-            variable_start_string=VAR_START_STR,
-            variable_end_string=VAR_END_STR,
-            trim_blocks=True,
-            lstrip_blocks=True,
-            loader=FileSystemLoader(Path(self.template_dir).resolve()),
+            loader=FileSystemLoader(Path(self.template_dir).resolve()), **TEMPLATE_OPT
         )
         return env.get_template(self.template)
 
@@ -67,6 +78,5 @@ class Json2Tex:
 
 
 if __name__ == "__main__":
-    process = Json2Tex()
-    process.render()
+    LatexGen().render()
     print("complete....")
